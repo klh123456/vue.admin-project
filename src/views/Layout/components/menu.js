@@ -8,7 +8,7 @@ export const menu = [
   {
     icon: "el-icon-edit",
     index: "icon",
-    title: "icon",
+    title: "图表",
     subs: [
       {
         index: "element",
@@ -23,28 +23,28 @@ export const menu = [
   {
     icon: "el-icon-setting",
     index: "component",
-    title: "component",
+    title: "组件",
     subs: [
       {
         index: "editor",
-        title: "editor"
+        title: "富文本编译器"
       },
       {
         index: "countTo",
-        title: "countTo"
+        title: "数字滚动"
       },
       {
         index: "trees",
-        title: "trees",
+        title: "树形控件",
         icon: "el-icon-share",
         subs: [
           {
             index: "customTree",
-            title: "customTree"
+            title: "自定义树"
           },
           {
             index: "treeSelect",
-            title: "treeSelect"
+            title: "下拉树"
           }
         ]
       }
@@ -53,56 +53,56 @@ export const menu = [
   {
     icon: "el-icon-rank",
     index: "draggable",
-    title: "draggable",
+    title: "拖拽",
     subs: [
       {
         index: "draglist",
-        title: "draglist"
+        title: "拖拽列表"
       },
       {
         index: "dragtable",
-        title: "dragtable"
+        title: "拖拽表格"
       }
     ]
   },
   {
     icon: "el-icon-document",
     index: "charts",
-    title: "charts",
+    title: "图表",
     subs: [
       {
         index: "cricle",
-        title: "cricle"
+        title: "饼图"
       }
     ]
   },
   {
     icon: "el-icon-folder",
     index: "formDesign",
-    title: "formDesign"
+    title: "表单生成器"
   },
   {
     icon: "el-icon-question",
     index: "permission",
-    title: "permission",
+    title: "权限",
     subs: [
       {
         index: "permissionMenu",
-        title: "permissionMenu",
+        title: "菜单测试",
         meta: {
           roles: ["admin"]
         }
       },
       {
         index: "permissionBtn",
-        title: "permissionBtn"
+        title: "按钮测试"
       }
     ]
   },
   {
     icon: "el-icon-warning",
     index: "error",
-    title: "error",
+    title: "错误页面",
     subs: [
       {
         index: "404",
@@ -113,6 +113,6 @@ export const menu = [
   {
     icon: "el-icon-mobile-phone",
     index: "https://github.com/zhuyihe/vue-admin-project",
-    title: "link"
+    title: "外部链接"
   }
 ];

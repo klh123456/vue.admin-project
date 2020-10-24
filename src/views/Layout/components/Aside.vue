@@ -1,0 +1,112 @@
+<template>
+  <div class="aside">
+    <el-scrollbar wrap-class="scrollbar-wrapper">
+      <el-menu
+        :default-active="onRoutes"
+        class="el-menu-vertical-demo"
+        @open="handleOpen"
+        @close="handleClose"
+        :collapse="isCollapse"
+        @select="select"
+        active-text-color="#bdb7ff"
+        router
+      >
+        <template v-for="(item,index) in menu" v-key="index">
+            <template v-if="item.subs">
+                <el-submenu :index="item.index" :key="item.index">
+                  <template slot="title">
+                    <i :class="item.icon"></i>
+                    <span>{{item.title}}</span>
+                  </template>
+
+                  <template v-for="(subsItem,index) in item.subs" v-key="index">
+
+                    <el-submenu v-if="subsItem.subs" :index="subsItem.index" :key="subsItem.index">
+                      <template slot="title">
+                        <i :class="subsItem.icon"></i>
+                        <span>{{subsItem.title}}</span>
+                      </template>
+                      <el-menu-item v-for="(threeItem,i) in subsItem.subs" :index="threeItem.index" :key="i">{{threeItem.title}}</el-menu-item>
+                    </el-submenu>
+
+                    
+                      <el-menu-item v-else :index="subsItem.index" :key="subsItem.index">
+                        {{subsItem.title}}
+                      </el-menu-item>
+                    
+
+                  </template>
+
+                </el-submenu>
+            </template>
+
+            <template v-else>
+              <el-menu-item :index="item.index" :key="item.index">
+                <i :class="item.icon"></i>
+                <span slot="title">{{item.title}}</span>
+              </el-menu-item>
+            </template>
+        </template>
+      </el-menu>
+    </el-scrollbar>
+  </div>
+</template>
+
+<script>
+import { menu } from "./menu";
+import { mapState } from "vuex";
+export default {
+  data() {
+    return {
+      menu: menu,
+    };
+  },
+  computed: {
+    onRoutes() {
+      return this.$route.path.replace("/", "");
+    },
+    ...mapState(["isCollapse","token"]),
+  },
+  mounted() {
+    console.log(this.token);
+  },
+
+  methods: {
+    handleOpen() {
+      //   console.log(index);
+      //   console.log(indexpath);
+    },
+    handleClose() {
+    //   console.log(index);
+    //   console.log(indexpath);
+    },
+    select() {
+    //   console.log(index);
+    //   console.log(indexpath);
+    },
+  },
+};
+</script>
+
+<style lang="less" scoped>
+.aside {
+  -webkit-transition: width 0.28s;
+  transition: width 0.28s;
+  height: 100%;
+  position: fixed;
+  font-size: 0px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1001;
+  overflow: hidden;
+  .el-menu-vertical-demo:not(.el-menu--collapse) {
+    width: 180px;
+    height: 100vh;
+    text-align: left;
+  }
+  .el-menu--collapse {
+    height: 100%;
+  }
+}
+</style>

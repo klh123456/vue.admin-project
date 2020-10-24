@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    token:'111',
+    token:'',
     roles:[], //用户角色
     tagsList:[],//打开的标签页个数,
     iisCollapse:false,
@@ -15,6 +15,9 @@ export default new Vuex.Store({
   mutations: {
     COMMIT_ROLE(state,roles){
       state.roles = roles
+    },
+    COMMIT_TOKEN(state,token){
+      state.token = token
     }
   },
   actions: {

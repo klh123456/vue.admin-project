@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import Aside from "./components/Aaide"
+import Aside from "./components/Aside"
 export default {
     components:{
         Aside

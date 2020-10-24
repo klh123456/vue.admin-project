@@ -1,11 +1,15 @@
 import axios from "axios"
 import router from "../router/index"
-import {Loading} from "element-ui"
-import {messages} from "../assets/js/common.js"
+import {
+    Loading
+} from "element-ui"
+import {
+    messages
+} from "../assets/js/common.js"
 import store from "../store/index"
 
-axios.defaults.timeout=60000;  // axios请求的超时时间
-axios.defaults.baseURL=process.env.VUE_APP_LOGOUT_URL;    // 这里是写需要发送的服务器地址
+axios.defaults.timeout = 60000; // axios请求的超时时间
+axios.defaults.baseURL = "http://rap2api.taobao.org/app/mock/269054"; // 这里是写需要发送的服务器地址
 axios.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded;charset=UTF-8";
 
 let loading = null
@@ -17,10 +21,10 @@ let loading = null
 axios.interceptors.request.use(
     config => {
         loading = Loading.service({
-            text:"正在加载中......",
-            fullscreen:true
+            text: "正在加载中......",
+            fullscreen: true
         })
-        if(store.state.token){
+        if (store.state.token) {
             config.headers["Authorization"] = store.state.token
         }
         return config;
@@ -34,26 +38,22 @@ axios.interceptors.request.use(
  * 用于处理数据返回后的操作
  */
 axios.interceptors.response.use(
-    response=>{
-        return new Promise((resolve,reject)=>{
-            //请求成功后关闭加载
-            if(loading){
-                loading.close()
-            };
-            const res = response.data;
-            if(res.code === 1000){ //和后台确定好成功之后返回的code码
-                resolve(res)
-            }else{
-                reject(res)
-            }
-        })
+    response => {
+        //请求成功后关闭加载
+        if (loading) {
+            loading.close()
+        }
+        if (response.status === 200) {
+            return response;
+        }
     },
+
     error => {
         console.log(error);
         //请求成功后关闭加载
-        if(loading){
+        if (loading) {
             loading.close()
-        };
+        }
         //断网处理或者请求超时
         if (!error.response) {
             //请求超时
@@ -80,7 +80,7 @@ axios.interceptors.response.use(
                 break;
             case 401:
                 messages("warning", "用户登陆过期，请重新登陆");
-                store.state.commit('COMMIT_TOKEN','')
+                store.state.commit('COMMIT_TOKEN', '')
                 setTimeout(() => {
                     router.replace({
                         path: "/login",
@@ -101,26 +101,24 @@ axios.interceptors.response.use(
 )
 
 //get 请求
-export function get(url,params){
-    return new Promise((resolve,reject)=>{
-        axios.get(url,{params})
-        .then(res=>{
-            resolve(res)
-        })
-        .catch(err=>{
-            reject(err)
-        })
+function post(url, data) {
+
+    return axios({
+        url: url,
+        method: 'POST',
+        data: data
     })
 }
 //post 
-export function post(url,params){
-    return new Promise((resolve,reject)=>{
-        axios.post(url,params)
-        .then(res=>{
-            resolve(res)
-        })
-        .catch(err=>{
-            reject(err)
-        })
+function get(url, params) {
+
+    return axios({
+        url,
+        method: 'GET',
+        params
     })
 }
+export {
+    post,
+    get
+};

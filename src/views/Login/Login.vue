@@ -33,7 +33,8 @@
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="submitForm('ruleForm2')"
-                >登录</el-button>
+                >登录</el-button
+              >
               <el-button @click="resetForm('ruleForm2')">重置</el-button>
             </el-form-item>
           </el-form>
@@ -44,6 +45,8 @@
 </template>
 
 <script>
+import { login } from "../../api/api";
+// import axios from 'axios'
 export default {
   name: "login",
   data() {
@@ -75,21 +78,27 @@ export default {
     };
   },
   methods: {
-      submitForm(formName){
-          this.$refs[formName].validate((valid)=>{
-            if(valid){
-                let roles = [];
-                roles.push(this.ruleForm2.username)
-                this.$store.commit("COMMIT_ROLE",roles)
-                this.$router.push({
-                    path:'/home'
-                })
-            }else{
-                return false
-            }
-          })
-      },
-      resetForm(formName) {
+    submitForm(formName) {
+      login(this.ruleForm2).then((res) => {
+        console.log(res);
+        this.$store.commit("COMMIT_TOKEN",res.data.token)
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            let roles = [];
+            roles.push(this.ruleForm2.username);
+            this.$store.commit("COMMIT_ROLE", roles);
+            this.$router.push({
+              path: "/home",
+            });
+          } else {
+            return false;
+          }
+        });
+      });
+
+
+    },
+    resetForm(formName) {
       this.$refs[formName].resetFields();
     },
   },
@@ -97,7 +106,7 @@ export default {
 </script>
 <style >
 .el-form-item__label {
-  color: white ;
+  color: white;
 }
 </style>
 <style lang="less" scoped>
