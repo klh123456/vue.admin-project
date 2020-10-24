@@ -9,7 +9,7 @@ export default new Vuex.Store({
     roles:[], //用户角色
     tagsList:[],//打开的标签页个数,
     iisCollapse:false,
-    breadList:[] //面包屑功能
+    breadList:["home"] //面包屑功能
   },
   //只有通过他才能使之state
   mutations: {
