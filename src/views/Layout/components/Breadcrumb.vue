@@ -1,7 +1,15 @@
 <template>
   <div class="breadcrumb">
     <el-breadcrumb separator="/">
-      <el-breadcrumb-item> </el-breadcrumb-item>
+      <template v-for="(item,index) in $store.state.breadList">
+        <el-breadcrumb-item
+        :to="activeList.indexOf(item)== -1?'':{ path:'/'+item}"
+        :key="index"
+        >
+          {{item}}
+        </el-breadcrumb-item>
+      </template>
+      
     </el-breadcrumb>
   </div>
 </template>
@@ -13,11 +21,16 @@
                 activeList: []
             }
         },
-        methods(){
-
+        mounted(){
+          this.getBreadcrumb()
         },
-        watch(){
-
+        watch:{
+          $route(n,o){
+            //获取即将进入的路由
+            console.log(n,o);
+            let route = n.fullPath.replace("/","")
+            this.getBreadcrumb(route)
+          }
         },
         methods:{
             //获取面包屑
