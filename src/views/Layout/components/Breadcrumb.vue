@@ -27,7 +27,8 @@
         watch:{
           $route(n,o){
             //获取即将进入的路由
-            console.log(n,o);
+            console.log(n);
+            console.log(o);
             let route = n.fullPath.replace("/","")
             this.getBreadcrumb(route)
           }
@@ -39,7 +40,7 @@
                  this.activeList.push(this.$store.state.breadList[0]);
                  let breadList = this.$store.state.breadList;
                  if(route !== "home"){
-                     if(breadList[breadList.length - 1] !== "home"){
+                     if(breadList[breadList.length - 1] !== "首页"){
                          this.activeList.push(breadList[breadList.length-1])
                      }
                  }else{

@@ -9,7 +9,7 @@ export default new Vuex.Store({
     roles: [], //用户角色
     tagsList: [], //打开的标签页个数,
     isCollapse: false,
-    breadList: ["home"] //面包屑功能
+    breadList: ["首页"] //面包屑功能
   },
   //只有通过他才能使之state
   mutations: {
@@ -30,7 +30,7 @@ export default new Vuex.Store({
       state.isCollapse = bool;
     },
     // 保存标签
-    TAGES_LISR(state,arr){
+    TAGES_LIST(state,arr){
       state.tagsList = arr
     }
   },

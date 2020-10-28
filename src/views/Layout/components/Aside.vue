@@ -11,41 +11,49 @@
         active-text-color="#bdb7ff"
         router
       >
-        <template v-for="(item,index) in menu" v-key="index">
-            <template v-if="item.subs">
-                <el-submenu :index="item.index" :key="item.index">
-                  <template slot="title">
-                    <i :class="item.icon"></i>
-                    <span>{{item.title}}</span>
-                  </template>
-
-                  <template v-for="(subsItem,index) in item.subs" v-key="index">
-
-                    <el-submenu v-if="subsItem.subs" :index="subsItem.index" :key="subsItem.index">
-                      <template slot="title">
-                        <i :class="subsItem.icon"></i>
-                        <span>{{subsItem.title}}</span>
-                      </template>
-                      <el-menu-item v-for="(threeItem,i) in subsItem.subs" :index="threeItem.index" :key="i">{{threeItem.title}}</el-menu-item>
-                    </el-submenu>
-
-                    
-                      <el-menu-item v-else :index="subsItem.index" :key="subsItem.index">
-                        {{subsItem.title}}
-                      </el-menu-item>
-                    
-
-                  </template>
-
-                </el-submenu>
-            </template>
-
-            <template v-else>
-              <el-menu-item :index="item.index" :key="item.index">
+        <template v-for="(item, index) in menu" v-key="index">
+          <template v-if="item.subs">
+            <el-submenu :index="item.index" :key="item.index">
+              <template slot="title">
                 <i :class="item.icon"></i>
-                <span slot="title">{{item.title}}</span>
-              </el-menu-item>
-            </template>
+                <span>{{ item.title }}</span>
+              </template>
+
+              <template v-for="(subsItem, index) in item.subs" v-key="index">
+                <el-submenu
+                  v-if="subsItem.subs"
+                  :index="subsItem.index"
+                  :key="subsItem.index"
+                >
+                  <template slot="title">
+                    <i :class="subsItem.icon"></i>
+                    <span>{{ subsItem.title }}</span>
+                  </template>
+                  <el-menu-item
+                    v-for="(threeItem, i) in subsItem.subs"
+                    :index="threeItem.index"
+                    :key="i"
+                    >{{ threeItem.title }}</el-menu-item
+                  >
+                </el-submenu>
+
+                <el-menu-item
+                  v-else
+                  :index="subsItem.index"
+                  :key="subsItem.index"
+                >
+                  {{ subsItem.title }}
+                </el-menu-item>
+              </template>
+            </el-submenu>
+          </template>
+
+          <template v-else>
+            <el-menu-item :index="item.index" :key="item.index">
+              <i :class="item.icon"></i>
+              <span slot="title">{{ item.title }}</span>
+            </el-menu-item>
+          </template>
         </template>
       </el-menu>
     </el-scrollbar>
@@ -65,7 +73,7 @@ export default {
     onRoutes() {
       return this.$route.path.replace("/", "");
     },
-    ...mapState(["isCollapse","token"]),
+    ...mapState(["isCollapse", "token"]),
   },
   mounted() {
     console.log(this.token);
@@ -77,12 +85,19 @@ export default {
       //   console.log(indexpath);
     },
     handleClose() {
-    //   console.log(index);
-    //   console.log(indexpath);
+      //   console.log(index);
+      //   console.log(indexpath);
     },
-    select() {
-    //   console.log(index);
-    //   console.log(indexpath);
+    select(index, indexPath) {
+      console.log(index);
+      console.log(indexPath);
+      if (indexPath.indexOf("home") > -1) return;
+      if (index !== null) {
+        let breadList = ["首页"];
+        breadList.push(...indexPath);
+        console.log(breadList);
+        this.$store.commit("SET_BREAD", breadList);
+      }
     },
   },
 };

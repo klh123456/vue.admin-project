@@ -6,6 +6,7 @@
       :class="isCollapse == true ? 'container_collapse' : ''"
     >
       <Header />
+      <Main></Main>
     </div>
   </div>
 </template>
@@ -13,11 +14,13 @@
 <script>
 import Aside from "./components/Aside";
 import Header from "./components/Header";
+import Main from "./components/Main"
 import { mapState } from "vuex";
 export default {
   components: {
     Aside,
     Header,
+    Main
   },
   data() {
     return {};
@@ -30,8 +33,8 @@ export default {
 
 <style lang="less" scoped>
 .wapper {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   position: relative;
   .main-container {
     min-height: 100%;

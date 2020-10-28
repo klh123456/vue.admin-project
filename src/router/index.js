@@ -23,9 +23,21 @@ const routes = [
   {
     path: '/home',
     component:getComponent("Layout","Layout"),
-    // children:[{
-
-    // }]
+    children:[{
+      path:"/home",
+      component:getComponent("Home","Home"),
+      meta:{
+        title:"首页"
+      }
+    },
+    {
+      path:"/iconfont",
+      component:getComponent("Icon","Icon"),
+      meta:{
+        title:"iconfont"
+      }
+    }
+  ]
   },
   
   
