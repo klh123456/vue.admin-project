@@ -11,7 +11,7 @@
         active-text-color="#bdb7ff"
         router
       >
-        <template v-for="(item, index) in menu" v-key="index">
+        <template v-for="(item, index) in items" v-key="index">
           <template v-if="item.subs">
             <el-submenu :index="item.index" :key="item.index">
               <template slot="title">
@@ -74,6 +74,11 @@ export default {
       return this.$route.path.replace("/", "");
     },
     ...mapState(["isCollapse", "token"]),
+    // 获取对应权限的测导航列表
+    items() {
+      let items = this.filterMenus(menu, this.$store.state.roles);
+      return items;
+    },
   },
   mounted() {
     console.log(this.token);
@@ -88,12 +93,43 @@ export default {
       //   console.log(index);
       //   console.log(indexpath);
     },
+    /**
+     * 通过meta.role判断是否与当前用户权限匹配
+     * @param roles
+     * @param menu
+     */
+    hasPermission(roles, menu) {
+      if (menu.meta && menu.meta.roles) {
+        return roles.some((role) => menu.meta.roles.includes(role));
+      } else {
+        return true;
+      }
+    },
+
+    /**
+     * @param {Arrary} menus 菜单
+     * @param {Arrary} roles 角色
+     * @return {Arrary} res 过滤后的菜单
+     */
+    filterMenus(menus, roles) {
+      const res = [];
+      menus.forEach((route) => {
+        const tmp = { ...route };
+        if (this.hasPermission(roles, tmp)) {
+          if (tmp.subs) {
+            tmp.subs = this.filterMenus(tmp.subs, roles);
+          }
+          res.push(tmp);
+        }
+      });
+      return res;
+    },
     select(index, indexPath) {
       console.log(index);
       console.log(indexPath);
       if (indexPath.indexOf("home") > -1) return;
       if (index !== null) {
-        let breadList = ["首页"];
+        let breadList = ["home"];
         breadList.push(...indexPath);
         console.log(breadList);
         this.$store.commit("SET_BREAD", breadList);

@@ -6,7 +6,7 @@
         :to="activeList.indexOf(item)== -1?'':{ path:'/'+item}"
         :key="index"
         >
-          {{item}}
+          {{china[item]}}
         </el-breadcrumb-item>
       </template>
       
@@ -15,10 +15,12 @@
 </template>
 
 <script>
+import zh from '../../../lang/zh'
     export default {
         data(){
             return {
-                activeList: []
+                activeList: [],
+                china:zh.route
             }
         },
         mounted(){
@@ -37,10 +39,12 @@
             //获取面包屑
              getBreadcrumb(route) {
                  this.activeList = [];
+                 
+      //activeList取出vuex面包屑的第一项和最后一项，由于中间无论多少项都是不可点击的，所以拿出来和面包屑导航进行比较
                  this.activeList.push(this.$store.state.breadList[0]);
                  let breadList = this.$store.state.breadList;
                  if(route !== "home"){
-                     if(breadList[breadList.length - 1] !== "首页"){
+                     if(breadList[breadList.length - 1] !== "home"){
                          this.activeList.push(breadList[breadList.length-1])
                      }
                  }else{
