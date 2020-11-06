@@ -113,6 +113,15 @@
         </div>
       </el-col>
     </el-row>
+
+    <el-row :gutter="40">
+      <el-col :lg="5" :sm="8" :xs="24" >
+         <div class="" style="height:300px; background-color: #fff;"></div>
+      </el-col>
+      <el-col :lg="19" :sm="16" :xs="24">
+         <div class="" style="height:300px; background-color: #fff;"></div>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -127,6 +136,7 @@ export default {
 
 <style lang="less" scoped>
 .home {
+  width: 100%;
   padding: 40px;
   box-sizing: border-box;
   background-color: rgb(236, 234, 234);

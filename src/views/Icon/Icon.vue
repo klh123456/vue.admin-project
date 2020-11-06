@@ -1,15 +1,12 @@
 <template>
-    <div>
-        这是icon
-    </div>
+  <div>
+    123456
+  </div>
 </template>
 
 <script>
-    export default {
-        
-    }
+export default {};
 </script>
 
 <style lang="scss" scoped>
-
 </style>

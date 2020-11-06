@@ -111,7 +111,6 @@ function post(url, data) {
 }
 //post 
 function get(url, params) {
-
     return axios({
         url,
         method: 'GET',

@@ -122,6 +122,7 @@ export default {
           res.push(tmp);
         }
       });
+      
       return res;
     },
     select(index, indexPath) {

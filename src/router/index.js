@@ -36,6 +36,13 @@ const routes = [
       meta:{
         title:"iconfont"
       }
+    },
+    {
+      path:"/element",
+      component:getComponent("Icon","ele"),
+      meta:{
+        title:"element"
+      }
     }
   ]
   },
